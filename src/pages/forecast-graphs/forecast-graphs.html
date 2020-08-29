@@ -1,0 +1,312 @@
+<ion-header>
+    <ion-navbar color="primary">
+        <ion-title>{{ sharedService.modifyLocationString(sharedService.location) }}</ion-title>
+
+        <ion-buttons end>
+            <button ion-button icon-only (click)="presentModalSearchCity()">
+                <ion-icon name="md-search"></ion-icon>
+            </button>
+
+            <button ion-button icon-only (click)="presentPopoverMenu($event);">
+                <ion-icon name="md-more"></ion-icon>
+            </button>
+        </ion-buttons>
+    </ion-navbar>
+</ion-header>
+
+<div class="subheader">
+    <div class="subheader-left" (click)="sharedService.locationData.data ? presentAlertSelectDay() : null">
+        <ion-icon name="md-calendar"></ion-icon>
+
+        <div class="subheader-stacked-div">
+            <p class="subheader-stacked-upper">
+                {{ sharedService.locationData.data ? sharedService.getDayTranslation(sharedService.locationData.data[sharedService.locationDataIndex].weekday, settings.language) : null }}
+            </p>
+
+            <p class="subheader-stacked-lower">
+                {{ sharedService.locationData.data ? sharedService.modifyDateString(sharedService.locationData.data[sharedService.locationDataIndex].date) : null }}
+            </p>            
+        </div>
+    </div>
+</div>
+
+<div class="no-connection-data" *ngIf="!sharedService.locationData.data">
+    <div>
+        <ion-icon name="md-paper"></ion-icon>
+
+        <p>{{ translations[settings.language].dataUnavailable }}</p>
+    </div>
+</div>
+
+<div class="no-connection-data" *ngIf="sharedService.locationData.data && !viewLoaded">
+    <div>
+        <ion-spinner name="crescent"></ion-spinner>
+
+        <p>{{ translations[settings.language].justMoment }}</p>
+    </div>
+</div>
+
+<ion-content #graphsContent (ionScroll)="onHorizontalScroll()"> 
+    <div class="graph-header" [ngStyle]="settings.graphs.temperature ? { 'height': '36px', 'border-bottom': '1px solid #ddd' } : { 'height': '0', 'border': 'none' }" id="temperature">
+        <div class="dot" style="background-color: #F44336"></div>
+        {{ translations[settings.language].temperature }} ({{ settings.units.unitTemperature }})&nbsp;
+            <ion-checkbox [(ngModel)]="settings.graphs.temperature"></ion-checkbox>     
+    </div>
+
+    <div class="graph-wrapper" style="height: 122px;" [ngStyle]="settings.graphs.temperature ? { 'display': 'block' } : { 'display': 'none' }">    
+        <div class="graph-scale" style="height: 122px;">
+            <div class="graph-ticks-wrapper">
+                <div class="graph-tick" *ngFor="let tick of temperatureTicks">{{ tick }}</div>
+            </div>
+        </div>
+
+        <div class="graph-div" style="height: 122px;">
+            <ion-spinner [ngStyle]="{ 'height': 48 + graphsContent.scrollLeft + 'px' }" class="spinners" name="crescent" *ngIf="!graphs.temperature.load"></ion-spinner>
+            <canvas #temperatureGraph height="122" width="{{ ((sharedService.labels.length - 1) * 26) + 74 }}"></canvas>  
+        </div>
+    </div>    
+
+    <div class="graph-header" [ngStyle]="settings.graphs.precipitation ? { 'height': '36px', 'border-bottom': '1px solid #ddd' } : { 'height': '0', 'border': 'none' }" id="precipitation">
+        <div class="dot" style="background-color: #00C853"></div>
+        {{ translations[settings.language].precAmount }} ({{ settings.units.unitLength.s }}) 
+            <ion-checkbox [(ngModel)]="settings.graphs.precipitation"></ion-checkbox>    
+    </div>
+
+    <div class="graph-wrapper" style="height: 98px;" [ngStyle]="settings.graphs.precipitation ? { 'display': 'block' } : { 'display': 'none' }">       
+        <div class="graph-scale" style="height: 98px;">
+            <div class="graph-ticks-wrapper">
+                <div class="graph-tick prec" *ngFor="let tick of precipitationTicks">{{ tick }}</div>
+            </div>
+        </div>
+        
+        <div class="graph-div" style="height: 98px;">
+            <ion-spinner [ngStyle]="{ 'height': 48 + graphsContent.scrollLeft + 'px' }" class="spinners" name="crescent" *ngIf="!graphs.precipitation.load"></ion-spinner>
+            <canvas #precipitationGraph height="98" width="{{ ((sharedService.labels.length - 1) * 26) + 74 }}"></canvas>  
+        </div>   
+    </div>
+
+    <div class="graph-header" [ngStyle]="settings.graphs.probabilities ? { 'height': '36px', 'border-bottom': '1px solid #ddd' } : { 'height': '0', 'border': 'none' }" id="probabilities">
+        <div class="dot" style="background-color: #00C853"></div>
+        {{ translations[settings.language].precipitation }} &nbsp;
+        <div class="dot" style="background-color: #2962FF"></div>
+        {{ translations[settings.language].snow }} &nbsp;   
+        <div class="dot" style="background-color: #FF1744"></div>
+        {{ translations[settings.language].lightning }} (%) 
+            <ion-checkbox [(ngModel)]="settings.graphs.probabilities"></ion-checkbox>                
+    </div>
+
+    <div class="graph-wrapper" [ngStyle]="settings.graphs.probabilities ? { 'display': 'block' } : { 'display': 'none' }">       
+        <div class="graph-scale">
+            <div class="graph-ticks-wrapper">
+                <div class="graph-tick" *ngFor="let tick of probabilitiesTicks">{{ tick }}</div>
+            </div>
+        </div>
+        
+        <div class="graph-div">
+            <ion-spinner [ngStyle]="{ 'height': 48 + graphsContent.scrollLeft + 'px' }" class="spinners" name="crescent" *ngIf="!graphs.probabilities.load"></ion-spinner>
+            <canvas #probabilitiesGraph height="158" width="{{ ((sharedService.labels.length - 1) * 26) + 74 }}"></canvas>  
+        </div>   
+    </div>
+    
+    <div class="graph-header" [ngStyle]="settings.graphs.wind ? { 'height': '36px', 'border-bottom': '1px solid #ddd' } : { 'height': '0', 'border': 'none' }" id="wind">
+        <div class="dot" style="background-color: #184680"></div>
+        {{ translations[settings.language].avgSpd }} &nbsp;
+        <div class="dot" style="background-color: #00BFA5"></div>
+        {{ translations[settings.language].maxHits }} ({{ settings.units.unitSpeed }}) 
+            <ion-checkbox [(ngModel)]="settings.graphs.wind"></ion-checkbox>
+    </div>
+    
+    <div class="graph-wrapper" style="height: 134px;" [ngStyle]="settings.graphs.wind ? { 'display': 'block' } : { 'display': 'none' }">           
+        <div class="graph-scale" style="height: 134px;">
+            <div class="graph-ticks-wrapper">
+                <div class="graph-tick" *ngFor="let tick of windTicks">{{ tick }}</div>
+            </div>
+        </div>
+
+        <div class="graph-div" style="height: 134px;">
+            <ion-spinner [ngStyle]="{ 'height': 48 + graphsContent.scrollLeft + 'px' }" class="spinners" name="crescent" *ngIf="!graphs.wind.load"></ion-spinner>
+            <canvas #windGraph height="134" width="{{ ((sharedService.labels.length - 1) * 26) + 74 }}"></canvas>  
+        </div> 
+    </div> 
+    
+    <div class="graph-header" [ngStyle]="settings.graphs.humidity ? { 'height': '36px', 'border-bottom': '1px solid #ddd' } : { 'height': '0', 'border': 'none' }" id="humidity">
+        <div class="dot" style="background-color: #039BE5"></div>
+        {{ translations[settings.language].relHum }} (%) 
+            <ion-checkbox [(ngModel)]="settings.graphs.humidity"></ion-checkbox>
+    </div>
+
+    <div class="graph-wrapper" [ngStyle]="settings.graphs.humidity ? { 'display': 'block' } : { 'display': 'none' }">  
+        <div class="graph-scale">
+            <div class="graph-ticks-wrapper">
+                <div class="graph-tick" *ngFor="let tick of humidityTicks">{{ tick }}</div>
+            </div>
+        </div>
+        
+        <div class="graph-div">
+            <ion-spinner [ngStyle]="{ 'height': 48 + graphsContent.scrollLeft + 'px' }" class="spinners" name="crescent" *ngIf="!graphs.humidity.load"></ion-spinner>
+            <canvas #humidityGraph height="158" width="{{ ((sharedService.labels.length - 1) * 26) + 74 }}"></canvas>  
+        </div> 
+    </div>
+
+    
+    <div class="graph-header" [ngStyle]="settings.graphs.mlcape ? { 'height': '36px', 'border-bottom': '1px solid #ddd' } : { 'height': '0', 'border': 'none' }" id="mlcape">
+        <div class="dot" style="background-color: #AA00FF"></div>
+            MLCAPE (J/kg) 
+            <ion-checkbox [(ngModel)]="settings.graphs.mlcape"></ion-checkbox>
+    </div>
+
+    <div class="graph-wrapper" [ngStyle]="settings.graphs.mlcape ? { 'display': 'block' } : { 'display': 'none' }">          
+        <div class="graph-scale">
+            <div class="graph-ticks-wrapper">
+                <div class="graph-tick" *ngFor="let tick of mlcapeTicks">{{ tick }}</div>
+            </div>
+        </div>
+
+        <div class="graph-div">
+            <ion-spinner [ngStyle]="{ 'height': 48 + graphsContent.scrollLeft + 'px' }" class="spinners" name="crescent" *ngIf="!graphs.mlcape.load"></ion-spinner>
+            <canvas #mlcapeGraph height="158" width="{{ ((sharedService.labels.length - 1) * 26) + 74 }}"></canvas>  
+        </div> 
+    </div> 
+
+    <div class="graph-header" [ngStyle]="settings.graphs.pressure ? { 'height': '36px', 'border-bottom': '1px solid #ddd' } : { 'height': '0', 'border': 'none' }" id="pressure">
+        <div class="dot" style="background-color: #000"></div>
+        {{ translations[settings.language].pressure }} (hPa) 
+            <ion-checkbox [(ngModel)]="settings.graphs.pressure"></ion-checkbox>
+    </div>
+
+    <div class="graph-wrapper" [ngStyle]="settings.graphs.pressure ? { 'display': 'block' } : { 'display': 'none' }">          
+        <div class="graph-scale">
+            <div class="graph-ticks-wrapper">
+                <div class="graph-tick" *ngFor="let tick of pressureTicks">{{ tick }}</div>
+            </div>
+        </div>
+        
+        <div class="graph-div">
+            <ion-spinner [ngStyle]="{ 'height': 48 + graphsContent.scrollLeft + 'px' }" class="spinners" name="crescent" *ngIf="!graphs.pressure.load"></ion-spinner>
+            <canvas #pressureGraph height="158" width="{{ ((sharedService.labels.length - 1) * 26) + 74 }}"></canvas>  
+        </div> 
+    </div>
+
+    <div class="graph-header" [ngStyle]="settings.graphs.height0 ? { 'height': '36px', 'border-bottom': '1px solid #ddd' } : { 'height': '0', 'border': 'none' }" id="height0">
+        <div class="dot" style="background-color: #FF6D00"></div>
+        {{ translations[settings.language].height }} {{ settings.units.unitTemperature === '°C' ? 0 : (settings.units.unitTemperature === '°F' ? 32 : null) }}{{ settings.units.unitTemperature }} {{ translations[settings.language].aboveGround }} ({{ settings.units.unitLength.m }}) 
+            <ion-checkbox [(ngModel)]="settings.graphs.height0"></ion-checkbox>
+    </div>
+
+    <div class="graph-wrapper" [ngStyle]="settings.graphs.height0 ? { 'display': 'block' } : { 'display': 'none' }">          
+        <div class="graph-scale">
+            <div class="graph-ticks-wrapper">
+                <div class="graph-tick" *ngFor="let tick of height0Ticks">{{ tick }}</div>
+            </div>
+        </div>
+        
+        <div class="graph-div">
+            <ion-spinner [ngStyle]="{ 'height': 48 + graphsContent.scrollLeft + 'px' }" class="spinners" name="crescent" *ngIf="!graphs.height0.load"></ion-spinner>
+            <canvas #height0Graph height="158" width="{{ ((sharedService.labels.length - 1) * 26) + 74 }}"></canvas>  
+        </div> 
+    </div>
+    
+    <div class="graph-header" [ngStyle]="settings.graphs.dewpoint ? { 'height': '36px', 'border-bottom': '1px solid #ddd' } : { 'height': '0', 'border': 'none' }" id="dewpoint">
+        <div class="dot" style="background-color: #C51162"></div>
+        {{ translations[settings.language].dewpoint }} ({{ settings.units.unitTemperature }}) 
+            <ion-checkbox [(ngModel)]="settings.graphs.dewpoint"></ion-checkbox>
+    </div>
+        
+    <div class="graph-wrapper" style="height: 122px;" [ngStyle]="settings.graphs.dewpoint ? { 'display': 'block' } : { 'display': 'none' }">   
+        <div class="graph-scale" style="height: 122px;">
+            <div class="graph-ticks-wrapper">
+                <div class="graph-tick" *ngFor="let tick of dewpointTicks">{{ tick }}</div>
+            </div>
+        </div>
+        
+        <div class="graph-div" style="height: 122px;">
+            <ion-spinner [ngStyle]="{ 'height': 48 + graphsContent.scrollLeft + 'px' }" class="spinners" name="crescent" *ngIf="!graphs.dewpoint.load"></ion-spinner>
+            <canvas #dewpointGraph height="122" width="{{ ((sharedService.labels.length - 1) * 26) + 74 }}"></canvas>  
+        </div> 
+    </div> 
+    
+    <div class="graph-header" [ngStyle]="settings.graphs.t850 ? { 'height': '36px', 'border-bottom': '1px solid #ddd' } : { 'height': '0', 'border': 'none' }" id="t850">
+        <div class="dot" style="background-color: #F44336"></div>
+        {{ translations[settings.language].t850 }} ({{ settings.units.unitTemperature }}) 
+            <ion-checkbox [(ngModel)]="settings.graphs.t850"></ion-checkbox>
+    </div>
+
+    <div class="graph-wrapper" style="height: 122px;" [ngStyle]="settings.graphs.t850 ? { 'display': 'block' } : { 'display': 'none' }">     
+        <div class="graph-scale" style="height: 122px;">
+            <div class="graph-ticks-wrapper">
+                <div class="graph-tick" *ngFor="let tick of t850Ticks">{{ tick }}</div>
+            </div>
+        </div>
+        
+        <div class="graph-div" style="height: 122px;">
+            <ion-spinner [ngStyle]="{ 'height': 48 + graphsContent.scrollLeft + 'px' }" class="spinners" name="crescent" *ngIf="!graphs.t850.load"></ion-spinner>
+            <canvas #t850Graph height="122" width="{{ ((sharedService.labels.length - 1) * 26) + 74 }}"></canvas>  
+        </div>      
+    </div>
+
+    <div class="graph-header" [ngStyle]="!settings.graphs.temperature ? { 'display': 'block', 'border-bottom': '1px solid #ddd' } : { 'display': 'none', 'border': 'none' }">
+        <div class="dot" style="background-color: #F44336"></div>
+        {{ translations[settings.language].temperature }} ({{ settings.units.unitTemperature }})
+            <ion-checkbox [(ngModel)]="settings.graphs.temperature" (ionChange)="scrollToElement('temperature')"></ion-checkbox>
+    </div>
+
+    <div class="graph-header" [ngStyle]="!settings.graphs.precipitation ? { 'display': 'block', 'border-bottom': '1px solid #ddd' } : { 'display': 'none', 'border': 'none' }">
+        <div class="dot" style="background-color: #00C853"></div>
+        {{ translations[settings.language].precAmount }} ({{ settings.units.unitLength.s }}) 
+            <ion-checkbox [(ngModel)]="settings.graphs.precipitation" (ionChange)="scrollToElement('precipitation')"></ion-checkbox>    
+    </div>
+
+    <div class="graph-header" [ngStyle]="!settings.graphs.probabilities ? { 'display': 'block', 'border-bottom': '1px solid #ddd' } : { 'display': 'none', 'border': 'none' }">
+        <div class="dot" style="background-color: #00C853"></div>
+        {{ translations[settings.language].precipitation }} &nbsp;
+        <div class="dot" style="background-color: #2962FF"></div>
+        {{ translations[settings.language].snow }} &nbsp;   
+        <div class="dot" style="background-color: #FF1744"></div>
+        {{ translations[settings.language].lightning }} (%) 
+            <ion-checkbox [(ngModel)]="settings.graphs.probabilities" (ionChange)="scrollToElement('probabilities')"></ion-checkbox>                
+    </div>            
+
+    <div class="graph-header" [ngStyle]="!settings.graphs.wind ? { 'display': 'block', 'border-bottom': '1px solid #ddd' } : { 'display': 'none', 'border': 'none' }">
+        <div class="dot" style="background-color: #184680"></div>
+        {{ translations[settings.language].avgSpd }} &nbsp;
+        <div class="dot" style="background-color: #00BFA5"></div>
+        {{ translations[settings.language].maxHits }} ({{ settings.units.unitSpeed }}) 
+            <ion-checkbox [(ngModel)]="settings.graphs.wind" (ionChange)="scrollToElement('wind')"></ion-checkbox>
+    </div>  
+
+    <div class="graph-header" [ngStyle]="!settings.graphs.humidity ? { 'display': 'block', 'border-bottom': '1px solid #ddd' } : { 'display': 'none', 'border': 'none' }">
+        <div class="dot" style="background-color: #039BE5"></div>
+        {{ translations[settings.language].relHum }} (%) 
+            <ion-checkbox [(ngModel)]="settings.graphs.humidity" (ionChange)="scrollToElement('humidity')"></ion-checkbox>
+    </div>  
+
+    <div class="graph-header" [ngStyle]="!settings.graphs.mlcape ? { 'display': 'block', 'border-bottom': '1px solid #ddd' } : { 'display': 'none', 'border': 'none' }">
+        <div class="dot" style="background-color: #AA00FF"></div>
+            MLCAPE (J/kg) 
+            <ion-checkbox [(ngModel)]="settings.graphs.mlcape" (ionChange)="scrollToElement('mlcape')"></ion-checkbox>
+    </div>    
+    
+    <div class="graph-header" [ngStyle]="!settings.graphs.pressure ? { 'display': 'block', 'border-bottom': '1px solid #ddd' } : { 'display': 'none', 'border': 'none' }">
+        <div class="dot" style="background-color: #000"></div>
+        {{ translations[settings.language].pressure }} (hPa) 
+            <ion-checkbox [(ngModel)]="settings.graphs.pressure" (ionChange)="scrollToElement('pressure')"></ion-checkbox>
+    </div>    
+
+    <div class="graph-header" [ngStyle]="!settings.graphs.height0 ? { 'display': 'block', 'border-bottom': '1px solid #ddd' } : { 'display': 'none', 'border': 'none' }">
+        <div class="dot" style="background-color: #FF6D00"></div>
+        {{ translations[settings.language].height }} {{ settings.units.unitTemperature === '°C' ? 0 : (settings.units.unitTemperature === '°F' ? 32 : null) }}{{ settings.units.unitTemperature }} {{ translations[settings.language].aboveGround }} ({{ settings.units.unitLength.m }}) 
+            <ion-checkbox [(ngModel)]="settings.graphs.height0" (ionChange)="scrollToElement('height0')"></ion-checkbox>
+    </div>    
+
+    <div class="graph-header" [ngStyle]="!settings.graphs.dewpoint ? { 'display': 'block', 'border-bottom': '1px solid #ddd' } : { 'display': 'none', 'border': 'none' }">
+        <div class="dot" style="background-color: #C51162"></div>
+        {{ translations[settings.language].dewpoint }} ({{ settings.units.unitTemperature }}) 
+            <ion-checkbox [(ngModel)]="settings.graphs.dewpoint" (ionChange)="scrollToElement('dewpoint')"></ion-checkbox>
+    </div>    
+
+    <div class="graph-header" [ngStyle]="!settings.graphs.t850 ? { 'display': 'block', 'border-bottom': '1px solid #ddd' } : { 'display': 'none', 'border': 'none' }">
+        <div class="dot" style="background-color: #F44336"></div>
+        {{ translations[settings.language].t850 }} ({{ settings.units.unitTemperature }}) 
+            <ion-checkbox [(ngModel)]="settings.graphs.t850" (ionChange)="scrollToElement('t850')"></ion-checkbox>
+    </div>  
+</ion-content>

@@ -1,0 +1,148 @@
+page-forecast-table .toolbar-ios ion-title {
+  padding: 0 90px 0 16px;
+}
+
+page-forecast-table .toggle-ios {
+  margin: auto 8px !important;
+}
+
+page-forecast-table .slides {
+  height: auto;
+  position: absolute;
+  top: 112px;
+  bottom: 56px;
+  background-color: #e0e0e0;
+}
+
+page-forecast-table .slide-zoom {
+  height: 100%;
+}
+
+page-forecast-table .scroll-content {
+  margin-bottom: 0 !important;
+  background-color: #e0e0e0;
+}
+
+page-forecast-table .fixed-content {
+  margin-bottom: 0 !important;
+  background-color: #e0e0e0;
+}
+
+page-forecast-table .hour-item {
+  border-bottom: 1px solid #ccc;
+  background-color: #fff;
+}
+
+page-forecast-table .hour-item:last-of-type {
+  margin-bottom: 0 !important;
+}
+
+page-forecast-table .hour-item-row {
+  height: 44px;
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+}
+
+page-forecast-table .hour-item-col {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  color: #444;
+}
+
+page-forecast-table .hour-item p {
+  margin: auto;
+  font-size: 14px;
+}
+
+page-forecast-table .hour-item img {
+  margin: auto;
+  display: block;
+  padding: 7px;
+  max-height: 100%;
+  width: auto;
+}
+
+page-forecast-table .img-fog {
+  top: 0;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  margin-left: 0px;
+}
+
+page-forecast-table .img-storm {
+  top: 0;
+  position: absolute;
+  width: 110%;
+  height: 110%;
+  margin-top: 5px;
+  margin-left: 11px;
+  z-index: 2;
+}
+
+page-forecast-table hr {
+  background-color: #dedede;
+}
+
+@-webkit-keyframes posibilitiesdown {
+  from {
+    height: 0px;
+  }
+  to {
+    height: 44px;
+  }
+}
+
+@keyframes posibilitiesdown {
+  from {
+    height: 0px;
+  }
+  to {
+    height: 44px;
+  }
+}
+
+@-webkit-keyframes posibilitiesup {
+  from {
+    height: 44px;
+  }
+  to {
+    height: 0px;
+  }
+}
+
+@keyframes posibilitiesup {
+  from {
+    height: 44px;
+  }
+  to {
+    height: 0px;
+  }
+}
+
+page-forecast-table .posibilities-down {
+  display: block;
+}
+
+page-forecast-table .posibilities-up {
+  display: none;
+}
+
+page-forecast-table .content-md {
+  background-color: #e0e0e0;
+}
+
+page-forecast-table .content-ios {
+  background-color: #e0e0e0;
+}
+/*# sourceMappingURL=forecast-table.css.map */

@@ -1,0 +1,105 @@
+{
+  "name": "com.m",
+  "version": "1.0.0",
+  "author": "Up Studio Ltd.",
+  "homepage": "http://upstud.io",
+  "private": true,
+  "scripts": {
+    "clean": "ionic-app-scripts clean",
+    "build": "ionic-app-scripts build",
+    "lint": "ionic-app-scripts lint",
+    "ionic:build": "ionic-app-scripts build",
+    "ionic:serve": "ionic-app-scripts serve"
+  },
+  "dependencies": {
+    "@angular/common": "5.0.1",
+    "@angular/compiler": "5.0.1",
+    "@angular/compiler-cli": "5.0.1",
+    "@angular/core": "5.0.1",
+    "@angular/forms": "5.0.1",
+    "@angular/http": "5.0.1",
+    "@angular/platform-browser": "5.0.1",
+    "@angular/platform-browser-dynamic": "5.0.1",
+    "@ionic-native/admob-free": "^4.15.0",
+    "@ionic-native/app-rate": "^4.15.0",
+    "@ionic-native/core": "4.4.0",
+    "@ionic-native/email-composer": "^4.15.0",
+    "@ionic-native/geolocation": "^4.15.0",
+    "@ionic-native/globalization": "^4.15.0",
+    "@ionic-native/http": "^4.15.0",
+    "@ionic-native/native-storage": "^4.15.0",
+    "@ionic-native/network": "^4.15.0",
+    "@ionic-native/social-sharing": "^4.15.0",
+    "@ionic-native/splash-screen": "^4.15.0",
+    "@ionic-native/status-bar": "^4.15.0",
+    "@ionic/storage": "2.1.3",
+    "chart.js": "^2.7.2",
+    "chartjs-plugin-annotation": "^0.5.7",
+    "cordova-admob-sdk": "^0.21.0",
+    "cordova-android": "8.0.0",
+    "cordova-browser": "5.0.4",
+    "cordova-plugin-admob-free": "^0.24.0",
+    "cordova-plugin-advanced-http": "^1.11.1",
+    "cordova-plugin-apprate": "^1.4.0",
+    "cordova-plugin-device": "^1.1.7",
+    "cordova-plugin-dialogs": "^2.0.1",
+    "cordova-plugin-email-composer": "^0.8.15",
+    "cordova-plugin-extension": "^1.5.4",
+    "cordova-plugin-file": "^6.0.1",
+    "cordova-plugin-geolocation": "^4.0.1",
+    "cordova-plugin-globalization": "^1.11.0",
+    "cordova-plugin-inappbrowser": "^3.0.0",
+    "cordova-plugin-ionic-webview": "^1.2.1",
+    "cordova-plugin-nativestorage": "^2.3.2",
+    "cordova-plugin-network-information": "^1.3.4",
+    "cordova-plugin-splashscreen": "^4.1.0",
+    "cordova-plugin-statusbar": "^2.4.2",
+    "cordova-plugin-whitelist": "^1.3.3",
+    "cordova-plugin-x-socialsharing": "^5.4.4",
+    "cordova-promise-polyfill": "0.0.2",
+    "es6-promise-plugin": "^4.2.2",
+    "ionic-angular": "3.9.2",
+    "ionic-img-viewer": "^2.9.0",
+    "ionic-plugin-keyboard": "^2.2.1",
+    "ionicons": "3.0.0",
+    "ng2-google-charts": "^3.3.0",
+    "rxjs": "5.5.2",
+    "sw-toolbox": "3.6.0",
+    "zone.js": "0.8.18"
+  },
+  "devDependencies": {
+    "@ionic/app-scripts": "3.2.0",
+    "typescript": "2.4.2"
+  },
+  "description": "An Ionic project",
+  "cordova": {
+    "plugins": {
+      "cordova-plugin-device": {},
+      "cordova-plugin-ionic-webview": {},
+      "cordova-plugin-splashscreen": {},
+      "cordova-plugin-whitelist": {},
+      "ionic-plugin-keyboard": {},
+      "cordova-plugin-network-information": {},
+      "cordova-plugin-nativestorage": {},
+      "cordova-plugin-email-composer": {},
+      "cordova-plugin-geolocation": {
+        "GEOLOCATION_USAGE_DESCRIPTION": "To locate you"
+      },
+      "cordova-plugin-x-socialsharing": {
+        "ANDROID_SUPPORT_V4_VERSION": "24.1.1+"
+      },
+      "cordova-plugin-globalization": {},
+      "cordova-plugin-advanced-http": {},
+      "cordova-plugin-apprate": {},
+      "cordova-plugin-statusbar": {},
+      "cordova-plugin-inappbrowser": {},
+      "cordova-plugin-admob-free": {
+        "ADMOB_APP_ID": "ca-app-pub-8477327949541027~9463103858"
+      }
+    },
+    "platforms": [
+      "android",
+      "browser"
+    ]
+  }
+}

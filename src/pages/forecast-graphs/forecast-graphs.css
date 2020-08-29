@@ -1,0 +1,160 @@
+page-forecast-graphs .content-md {
+  background-color: #e0e0e0;
+}
+
+page-forecast-graphs .content-ios {
+  background-color: #e0e0e0;
+}
+
+page-forecast-graphs ion-refresher {
+  top: 112px !important;
+}
+
+page-forecast-graphs .toolbar-ios ion-title {
+  padding: 0 90px 0 16px;
+}
+
+page-forecast-graphs .checkbox-md {
+  position: absolute;
+  right: 16px;
+  top: 10px;
+}
+
+page-forecast-graphs .checkbox-ios {
+  position: absolute;
+  right: 16px;
+  top: 10px;
+}
+
+page-forecast-graphs .toolbar-ios ion-title {
+  padding: 0 90px 0 16px;
+}
+
+page-forecast-graphs .toggle-ios {
+  margin: auto 8px !important;
+}
+
+page-forecast-graphs ion-content {
+  z-index: -1;
+}
+
+page-forecast-graphs .scroll-content {
+  background-color: #e0e0e0;
+  margin-top: 112px !important;
+  overflow-x: scroll;
+}
+
+page-forecast-graphs .fixed-content {
+  background-color: #e0e0e0;
+  margin-top: 112px !important;
+}
+
+page-forecast-graphs .dot {
+  border-radius: 50%;
+  display: inline-block;
+  height: 8px;
+  margin: 0 5px 1px 0;
+  width: 8px;
+}
+
+page-forecast-graphs .graph-header {
+  position: -webkit-sticky;
+  position: sticky;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 100%;
+  height: 36px;
+  background: whitesmoke;
+  border-bottom: 1px solid #ddd;
+  line-height: 36px;
+  padding: 0 44px 0 16px;
+  color: #666;
+  left: 0;
+}
+
+page-forecast-graphs .graph-wrapper {
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  height: 158px;
+  border-bottom: 1px solid #ccc;
+  -webkit-box-sizing: content-box;
+          box-sizing: content-box;
+  margin: 0px 0px 8px 0px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+page-forecast-graphs .graph-wrapper {
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  height: 158px;
+  border-bottom: 1px solid #ccc;
+  -webkit-box-sizing: content-box;
+          box-sizing: content-box;
+  margin: 0px 0px 8px 0px;
+}
+
+page-forecast-graphs .graph-scale {
+  display: inline-block;
+  height: 158px;
+  width: 38px;
+  background: #E3F2FD;
+  position: -webkit-sticky;
+  position: sticky;
+  left: 0;
+  border-right: 1px solid #ccc;
+  z-index: 2;
+}
+
+page-forecast-graphs .graph-ticks-wrapper {
+  width: 100%;
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  position: absolute;
+  padding: 3px 0 0 0;
+}
+
+page-forecast-graphs .graph-tick {
+  width: 100%;
+  max-height: 12px;
+  text-align: center;
+  font-size: 12px;
+  line-height: 12px;
+  color: #666;
+}
+
+page-forecast-graphs .graph-div {
+  background-color: white;
+  height: 158px;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  display: inline-block;
+  margin-left: -42px;
+  position: relative;
+}
+
+page-forecast-graphs .prec {
+  padding-bottom: 3px !important;
+  max-height: 15px !important;
+}
+
+page-forecast-graphs .spinners {
+  display: block;
+  width: 28px;
+  height: 28px;
+  position: absolute;
+  z-index: 10;
+  top: 10px;
+}
+/*# sourceMappingURL=forecast-graphs.css.map */

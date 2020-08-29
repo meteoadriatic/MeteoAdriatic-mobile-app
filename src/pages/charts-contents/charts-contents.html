@@ -1,0 +1,11 @@
+<ion-header>
+    <ion-navbar color="primary">
+        <ion-title>{{ item.name }}</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content>
+    <ion-item *ngFor="let subItem of item.contents" (click)="subItem.contents ? goToContents(subItem) : goToChart(subItem)">
+        {{ subItem.name }}
+    </ion-item>
+</ion-content>

@@ -1,0 +1,20 @@
+page-select-city .fixed-content {
+  margin-top: 112px !important;
+}
+
+page-select-city .scroll-content {
+  margin-top: 112px !important;
+}
+
+page-select-city p {
+  position: fixed;
+  height: 112px;
+  width: 100%;
+  border-bottom: 1px solid #dedede;
+  color: #F44336;
+  margin: 0;
+  padding: 32px;
+  text-align: center;
+  font-size: 20px;
+}
+/*# sourceMappingURL=select-city.css.map */

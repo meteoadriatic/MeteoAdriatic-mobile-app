@@ -1,0 +1,53 @@
+page-settings .item-range ion-label {
+  width: 100% !important;
+  margin: 13px 8px 13px 7px !important;
+}
+
+page-settings .item-range ion-range {
+  padding-right: 16px !important;
+}
+
+page-settings .back-button {
+  display: inline-block;
+}
+
+page-settings .item-custom {
+  height: 46px;
+  background: white;
+  padding-left: 16px;
+}
+
+page-settings .item-custom div {
+  border-bottom: 1px solid #dedede;
+  font-size: 1.6rem;
+  line-height: 45px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  position: relative;
+  max-height: 100%;
+}
+
+page-settings .item-custom-selected {
+  margin-left: 16px;
+  font-style: italic;
+  margin-right: 36px;
+  max-height: 100%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  padding-right: 4px;
+  color: #F44336;
+}
+
+page-settings .item-custom ion-icon {
+  position: absolute;
+  right: 0;
+  height: 100%;
+  line-height: 47px;
+  margin-right: 16px;
+  font-size: 26px;
+  color: #444;
+}
+/*# sourceMappingURL=settings.css.map */

@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AACI,mBADe,CACf,YAAY,CAAC;EACT,OAAO,EAAE,uBAAuB;CACnC",
+    "sources": [
+        "legend-weather.scss"
+    ],
+    "names": [],
+    "file": "legend-weather.css"
+}

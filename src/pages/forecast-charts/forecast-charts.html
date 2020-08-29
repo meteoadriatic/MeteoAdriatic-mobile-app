@@ -1,0 +1,49 @@
+<ion-header>
+    <ion-navbar color="primary">
+        <ion-title>{{ translations[settings.language].charts }}</ion-title>
+
+        <ion-buttons end>
+            <button ion-button icon-only [navPush]="chartsFavoritePage">
+                <ion-icon name="md-heart"></ion-icon>
+            </button>
+
+            <button ion-button icon-only (click)="presentPopoverMenu($event);">
+                <ion-icon name="md-more"></ion-icon>
+            </button>
+        </ion-buttons>
+    </ion-navbar>
+</ion-header>
+
+<div class="no-connection-data" *ngIf="!connectionExists">
+    <div>
+        <ion-icon name="ios-wifi"></ion-icon>
+        
+        <p>{{ translations[settings.language].weekCon }}</p>
+    </div>
+</div>
+
+<ion-content *ngIf="connectionExists">
+    <ion-item *ngFor="let item of directoryTree" (click)="goToContents(item)">
+        {{ item.name }}
+    </ion-item>
+
+    <ion-item-divider *ngIf="lastSeen ? (lastSeen.length > 0 ? true : false) : false">
+        {{ translations[settings.language].lastSeen }}:
+    </ion-item-divider>
+
+    <div class="chart-path" *ngFor="let item of lastSeen" (click)="goToChart(item)">
+        <div class="chart-path-arrow">
+            <ion-icon name="ios-arrow-forward"></ion-icon>
+        </div>
+        <div class="chart-path-title">{{ item.chartData.name }}</div>
+
+        <div class="chart-path-subtitle">
+                -&nbsp;
+            <span *ngFor="let p of item.chartPath; let i = index;">
+                <span *ngIf="i !== 0">
+                    {{ p }}<span *ngIf="i !== item.chartPath.length - 1">&nbsp; / &nbsp;</span>
+                </span>
+            </span>
+        </div>
+    </div>
+</ion-content>

@@ -1,0 +1,161 @@
+<ion-header>
+    <ion-navbar color="primary">
+        <ion-title>{{ translations[settings.language].settings }}</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content>    
+    <ion-item-divider>{{ translations[settings.language].general }}</ion-item-divider>
+
+    <div class="item-custom" (click)="presentModalSearchCity()">
+        <div>
+            <span>{{ translations[settings.language].locationDefault }}:</span>
+
+            <span class="item-custom-selected">
+                {{ sharedService.modifyLocationString(settings.locationDefault.location) }}
+            </span>
+
+            <ion-icon name="ios-arrow-forward-outline"></ion-icon>
+        </div>
+    </div>
+
+    <div class="item-custom" (click)="presentAlertLanguage();">
+        <div>
+            <span>{{ translations[settings.language].language }}:</span>
+
+            <span class="item-custom-selected">
+                {{ settings.language | uppercase }}
+            </span>
+
+            <ion-icon name="ios-arrow-forward-outline"></ion-icon>
+        </div>
+    </div>
+
+    <!-- <div class="item-custom" (click)="presentAlertTab();">
+        <div>
+            <span>Početna kartica:</span>
+
+            <span class="item-custom-selected">
+                {{ settings.defaultTab.label }}
+            </span>
+
+            <ion-icon name="ios-arrow-forward-outline"></ion-icon>
+        </div>
+    </div> -->
+
+    <ion-item>
+        <ion-label>{{ translations[settings.language].basedLoc }}</ion-label>
+        <ion-toggle [(ngModel)]="settings.locationBased" (ionChange)="onChangeLocationBased(settings.locationBased)"></ion-toggle>
+    </ion-item>
+    
+    <ion-item-divider>{{ translations[settings.language].table }}</ion-item-divider>
+    
+    <ion-item>
+        <ion-label>{{ translations[settings.language].probabilities }}</ion-label>
+        <ion-toggle [(ngModel)]="settings.probabilities" (ionChange)="onChangeProbabilities(settings.probabilities);"></ion-toggle>
+    </ion-item>
+
+    <ion-item-divider>{{ translations[settings.language].charts }} </ion-item-divider>
+    
+    <ion-item>
+        <ion-label>{{ translations[settings.language].chartsIm }}</ion-label>
+        <ion-toggle [(ngModel)]="settings.chartsImmidieteCache" (ionChange)="onChangeChartsImmidieteCache(settings.chartsImmidieteCache)"></ion-toggle>
+    </ion-item>
+
+    <ion-item>
+        <ion-label>{{ translations[settings.language].autoSpd }}</ion-label>
+        <ion-range min="1" max="10" step="1" snaps="true" [(ngModel)]="settings.chartsAutoplayTransition" 
+                    (ionChange)="onChangeChartsAutoplayTransition(settings.chartsAutoplayTransition)">
+        </ion-range>
+    </ion-item>        
+
+    <ion-item-divider>{{ translations[settings.language].measurements }}</ion-item-divider>
+
+    <div class="item-custom" (click)="presentAlertUnitTemperature();">
+        <div>
+            <span>{{ translations[settings.language].temperature }}:</span>
+
+            <span class="item-custom-selected">
+                {{ settings.units.unitTemperature }}
+            </span>
+            
+            <ion-icon name="ios-arrow-forward-outline"></ion-icon>
+        </div>
+    </div>
+
+    <div class="item-custom" (click)="presentAlertUnitSpeed();">
+        <div>
+            <span>{{ translations[settings.language].speed }}:</span>
+
+            <span class="item-custom-selected">
+                {{ settings.units.unitSpeed }}
+            </span>
+            
+            <ion-icon name="ios-arrow-forward-outline"></ion-icon>
+        </div>
+    </div>
+<!-- 
+    <div class="item-custom" (click)="presentAlertUnitLength();">
+        <div>
+            <span>{{ translations[settings.language].length }}:</span>
+
+            <span class="item-custom-selected">
+                {{ settings.units.unitLength.m === 'm' ? 'metric' : 'imperial' }}
+            </span>
+            
+            <ion-icon name="ios-arrow-forward-outline"></ion-icon>
+        </div>
+    </div>  -->
+
+    <ion-item-divider>{{ translations[settings.language].graphs }}</ion-item-divider>
+
+    <ion-item>
+        <ion-label>{{ translations[settings.language].temperature }}</ion-label>
+        <ion-checkbox [(ngModel)]="settings.graphs.temperature" (ionChange)="onChangeGraphs(settings.graphs.temperature, 'temperature')"></ion-checkbox>
+    </ion-item>
+
+    <ion-item>
+        <ion-label>{{ translations[settings.language].precAmount }}</ion-label>
+        <ion-checkbox [(ngModel)]="settings.graphs.precipitation" (ionChange)="onChangeGraphs(settings.graphs.precipitation, 'precipitation')"></ion-checkbox>
+    </ion-item>
+
+    <ion-item>
+        <ion-label>{{ translations[settings.language].probabilities }}</ion-label>
+        <ion-checkbox [(ngModel)]="settings.graphs.probabilities" (ionChange)="onChangeGraphs(settings.graphs.probabilities, 'probabilities')"></ion-checkbox>
+    </ion-item>
+
+    <ion-item>
+        <ion-label>{{ translations[settings.language].wind }}</ion-label>
+        <ion-checkbox [(ngModel)]="settings.graphs.wind" (ionChange)="onChangeGraphs(settings.graphs.wind, 'wind')"></ion-checkbox>
+    </ion-item>    
+            
+    <ion-item>
+        <ion-label>{{ translations[settings.language].relHum }}</ion-label>
+        <ion-checkbox [(ngModel)]="settings.graphs.humidity" (ionChange)="onChangeGraphs(settings.graphs.humidity, 'humidity')"></ion-checkbox>
+    </ion-item>
+
+    <ion-item>
+        <ion-label>MLCAPE</ion-label>
+        <ion-checkbox [(ngModel)]="settings.graphs.mlcape" (ionChange)="onChangeGraphs(settings.graphs.mlcape, 'mlcape')"></ion-checkbox>
+    </ion-item>
+                
+    <ion-item>
+        <ion-label>{{ translations[settings.language].pressure }}</ion-label>
+        <ion-checkbox [(ngModel)]="settings.graphs.pressure" (ionChange)="onChangeGraphs(settings.graphs.pressure, 'pressure')"></ion-checkbox>
+    </ion-item>   
+        
+    <ion-item>
+        <ion-label>{{ translations[settings.language].height }} {{ settings.units.unitTemperature === '°C' ? 0 : (settings.units.unitTemperature === '°F' ? 32 : null) }}{{ settings.units.unitTemperature }} {{ translations[settings.language].aboveGround }}</ion-label>
+        <ion-checkbox [(ngModel)]="settings.graphs.height0" (ionChange)="onChangeGraphs(settings.graphs.height0, 'height0')"></ion-checkbox>
+    </ion-item>
+            
+    <ion-item>
+        <ion-label>{{ translations[settings.language].dewpoint }}</ion-label>
+        <ion-checkbox [(ngModel)]="settings.graphs.dewpoint" (ionChange)="onChangeGraphs(settings.graphs.dewpoint, 'dewpoint')"></ion-checkbox>
+    </ion-item>
+                
+    <ion-item>
+        <ion-label>{{ translations[settings.language].t850 }}</ion-label>
+        <ion-checkbox [(ngModel)]="settings.graphs.t850" (ionChange)="onChangeGraphs(settings.graphs.t850, 't850')"></ion-checkbox>
+    </ion-item>            
+</ion-content>

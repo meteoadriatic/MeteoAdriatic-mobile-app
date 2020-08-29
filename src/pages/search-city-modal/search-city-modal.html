@@ -1,0 +1,21 @@
+<ion-header>
+    <ion-navbar color="primary">
+        <ion-searchbar animated="true" placeholder="{{ translations[settings.language].searchLoc }}" style="color: #f7f7f7"
+                       showCancelButton="false" [(ngModel)]="query">
+        </ion-searchbar>
+    </ion-navbar>
+</ion-header>
+
+<ion-content>
+    <ion-item *ngFor="let location of locations | filterBy: sharedService.modifyQueryString(query)" (click)="onCitySelected(location);">
+        {{ sharedService.modifyLocationString(location.location) }}
+    </ion-item>
+
+    <div *ngIf="!query">
+        <ion-item-divider>{{ translations[settings.language].lastSearched }}:</ion-item-divider>        
+
+        <ion-item *ngFor="let location of locationsCached" (click)="onCitySelected(location);">
+            {{ sharedService.modifyLocationString(location.location) }}
+        </ion-item>
+    </div>
+</ion-content>

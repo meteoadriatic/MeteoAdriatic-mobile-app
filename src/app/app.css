@@ -1,0 +1,140 @@
+.tabbar {
+  opacity: 1 !important;
+}
+
+.bar-button-ios[icon-only] {
+  margin: 0 8px;
+}
+
+.toolbar-ios-primary .searchbar-ios .searchbar-input {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.back-button-text {
+  display: none !important;
+}
+
+.back-button-ios {
+  margin: 0 4px 0 8px !important;
+}
+
+.toolbar-ios ion-title {
+  padding: 0 10px 0px 48px;
+}
+
+.scroll-content {
+  background-color: #F5F5F5;
+}
+
+.subheader {
+  margin-top: 56px;
+  height: 56px;
+  background-color: #1976D2;
+  color: white;
+  z-index: 1;
+}
+
+.subheader-left {
+  float: left;
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.subheader-right {
+  float: right;
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.subheader-left ion-icon {
+  margin: auto 16px;
+  font-size: 24px;
+}
+
+.subheader-stacked-div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  width: 100px;
+}
+
+.subheader-single {
+  margin: auto;
+  font-size: 14px;
+}
+
+.subheader-stacked-upper {
+  margin: auto auto 2px auto;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.subheader-stacked-lower {
+  margin: 2px auto auto auto;
+  font-size: 14px;
+}
+
+.no-connection-data {
+  position: absolute;
+  z-index: 1;
+  width: 100%;
+  height: auto;
+  background-color: #e0e0e0;
+  top: 56px;
+  bottom: 56px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  color: #757575;
+}
+
+.no-connection-data div {
+  margin: auto;
+  text-align: center;
+}
+
+.no-connection-data ion-icon {
+  font-size: 60px;
+}
+
+.no-connection-data p {
+  font-size: 20px;
+}
+
+.no-connection-data ion-spinner {
+  width: 60px;
+  height: 60px;
+}
+
+.refresher-pulling-icon {
+  color: #0D47A1 !important;
+}
+
+.refresher-refreshing-icon {
+  color: #0D47A1 !important;
+}
+
+.item-divider-md {
+  padding-left: 16px;
+  border-bottom: 1px solid #dedede;
+  font-size: 1.4rem;
+  color: #666;
+  background-color: whitesmoke;
+}
+
+.item-divider-ios {
+  padding-left: 16px;
+  border-bottom: 1px solid #dedede;
+  font-size: 1.4rem;
+  color: #666;
+  background-color: whitesmoke;
+}
+/*# sourceMappingURL=app.css.map */

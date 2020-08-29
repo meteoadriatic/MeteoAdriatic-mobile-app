@@ -1,0 +1,103 @@
+page-chart {
+  background: #42A5F5;
+}
+
+page-chart .no-connection-div {
+  width: 100vw;
+  height: 75vw;
+  background-color: #e0e0e0;
+  padding-bottom: 56px;
+  padding-top: 56px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  color: #757575;
+}
+
+page-chart .no-connection-div div {
+  margin: auto;
+  text-align: center;
+}
+
+page-chart .no-connection-div ion-icon {
+  font-size: 60px;
+}
+
+page-chart .no-connection-div p {
+  font-size: 20px;
+}
+
+page-chart .chart-path {
+  background-color: #1976D2;
+  padding: 10px 16px;
+  -webkit-box-shadow: 0px 1px 8px 0px #7b8266;
+          box-shadow: 0px 1px 8px 0px #7b8266;
+  position: relative;
+}
+
+page-chart .chart-path-wrapper {
+  margin: 0;
+  font-size: inherit;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+page-chart .chart-path-paragraph {
+  margin: 0;
+  font-style: italic;
+  display: inline-block;
+  font-size: 14px;
+  color: #fafafa;
+  line-height: 24px;
+}
+
+page-chart .chart-path-paragraph:active {
+  color: #FFD600;
+}
+
+page-chart ion-item {
+  position: absolute !important;
+  left: 0 !important;
+  right: 0px !important;
+  bottom: 112px !important;
+  padding: 0 16px 0 16px !important;
+  border-bottom: none !important;
+  background-color: transparent !important;
+  min-height: 60px !important;
+  max-height: 60px !important;
+  width: auto !important;
+}
+
+page-chart .item-inner {
+  border-bottom: none !important;
+}
+
+page-chart .chart-button-bar {
+  position: absolute;
+  bottom: 56px;
+  height: 56px;
+  background-color: #1E88E5;
+  padding: 8px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+}
+
+page-chart .chart-button-bar-wrapper {
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+page-chart .chart-button-bar-wrapper button {
+  height: 100%;
+  width: 50px;
+  background-color: #FAFAFA;
+  margin: 0 8px;
+  padding: 0;
+  font-size: 20px;
+}
+/*# sourceMappingURL=chart.css.map */

@@ -1,0 +1,19 @@
+page-select-city {
+    .fixed-content {
+        margin-top: 112px !important;
+    }
+    .scroll-content {
+        margin-top: 112px !important; 
+    }
+    p {
+        position: fixed;
+        height: 112px;
+        width: 100%;
+        border-bottom: 1px solid #dedede;
+        color: #F44336;
+        margin: 0;
+        padding: 32px;
+        text-align: center;
+        font-size: 20px;
+    }
+}

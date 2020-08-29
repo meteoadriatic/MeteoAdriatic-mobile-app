@@ -1,0 +1,228 @@
+page-home .toolbar-ios ion-title {
+  padding: 0 90px 0 16px;
+}
+
+page-home .scroll-content {
+  background: #81D4FA;
+  margin-top: 55px !important;
+  margin-bottom: 56px !important;
+}
+
+page-home .content-md {
+  background-color: #81D4FA !important;
+}
+
+page-home .content-ios {
+  background-color: #81D4FA !important;
+}
+
+page-home .home-heading {
+  height: 360px;
+  position: relative;
+}
+
+page-home .home-heading-gradient-upper {
+  height: 200px;
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(-45%, #2196F3), to(#b3e5fc));
+  background: linear-gradient(#2196F3 -45%, #b3e5fc);
+}
+
+page-home .home-heading-gradient-lower {
+  height: 160px;
+  background: -webkit-gradient(linear, left top, left bottom, from(#b3e5fd), to(#E1F5FE));
+  background: linear-gradient(#b3e5fd 0%, #E1F5FE);
+}
+
+page-home .home-heading-mask {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+page-home .home-heading-time {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+page-home .home-heading-day {
+  margin: 0;
+  font-size: 18px;
+  color: #fff;
+  padding: 16px 0 8px 16px;
+}
+
+page-home .home-heading-date {
+  margin: 0;
+  color: #114782;
+  padding-left: 16px;
+}
+
+page-home .home-heading-info {
+  position: absolute;
+  right: 0px;
+  top: 10px;
+  padding: 8px;
+  border-radius: 10px;
+  color: #ffffff;
+  font-size: 13px;
+}
+
+page-home .home-heading-info p {
+  margin: 0;
+}
+
+page-home .home-heading-info p ion-icon {
+  font-size: 18px;
+}
+
+page-home .home-heading-weather {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  margin-top: 44px;
+}
+
+page-home .home-heading-weather div {
+  height: 64px;
+  width: 64px;
+  margin: auto;
+  position: relative;
+}
+
+page-home .home-heading-weather img {
+  height: 100%;
+  width: 100%;
+  display: block;
+}
+
+page-home .img-storm {
+  position: absolute !important;
+  top: 0;
+  height: 110% !important;
+  width: 110% !important;
+}
+
+page-home .img-fog {
+  position: absolute;
+  margin-top: -90%;
+}
+
+page-home .home-heading-temperature {
+  text-align: center;
+  color: white;
+  font-weight: bold;
+  font-size: 48px;
+  text-shadow: 2px 2px #114782;
+  margin: 8px 8px 4px 8px;
+}
+
+page-home .home-heading-loc-date {
+  text-align: center;
+  margin: 0;
+  color: #114782;
+  font-size: 12px;
+  padding: 10px;
+}
+
+page-home .home-canvas {
+  width: 100%;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+  overflow-x: scroll;
+  margin-top: -180px;
+  position: relative;
+}
+
+page-home .home-canvas canvas {
+  margin-left: -50px;
+  padding-right: 8px;
+}
+
+page-home .home-graph {
+  width: 4200px;
+  margin-top: -28px;
+  height: 134px;
+  background: #81D4FA;
+  margin-left: -30px;
+  padding-left: 30px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+page-home .home-graph-ticks {
+  background: #81D4FA;
+  width: 100%;
+  text-align: center;
+  padding-top: 24px;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  border-right: 1px solid transparent;
+}
+
+page-home .home-graph-ticks:last-of-type {
+  border-right: none;
+}
+
+page-home .home-graph-ticks-info {
+  margin: 0 auto;
+  padding: 0px 0px;
+  width: 76px;
+  border-radius: 8px;
+  color: #114782;
+}
+
+page-home .home-graph-humidity {
+  top: 5px;
+  position: relative;
+  text-align: left;
+  width: 100%;
+  display: inline-block;
+  padding-left: 4px;
+  font-size: 14px !important;
+}
+
+page-home .home-graph-humidity ion-icon {
+  font-size: 12.6px !important;
+}
+
+page-home .home-city-list {
+  background: transparent;
+}
+
+page-home .home-city {
+  background-color: #fff;
+}
+
+page-home .home-city-label {
+  background: transparent;
+}
+
+page-home .home-graph-ticks:first-of-type {
+  display: none;
+}
+
+page-home ion-refresher {
+  background: #5badf7;
+  height: 160px;
+  top: 55px !important;
+}
+
+page-home hr {
+  margin: 7px 16px 0px 16px;
+  background-color: #EEEEEE !important;
+}
+/*# sourceMappingURL=home.css.map */

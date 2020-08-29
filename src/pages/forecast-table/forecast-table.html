@@ -1,0 +1,146 @@
+<ion-header>
+    <ion-navbar color="primary">
+        <ion-title>{{ sharedService.modifyLocationString(sharedService.location) }}</ion-title>
+
+        <ion-buttons end>
+            <button ion-button icon-only (click)="presentModalSearchCity()">
+                <ion-icon name="md-search"></ion-icon>
+            </button>
+
+            <button ion-button icon-only (click)="presentPopoverMenu($event);">
+                <ion-icon name="md-more"></ion-icon>
+            </button>
+        </ion-buttons>
+    </ion-navbar>
+</ion-header>
+
+<div class="subheader">
+    <div class="subheader-left" (click)="sharedService.locationData.data ? presentAlertSelectDay() : null">
+        <ion-icon name="md-calendar"></ion-icon>
+
+        <div class="subheader-stacked-div">
+            <p class="subheader-stacked-upper">
+                {{ sharedService.locationData.data ? sharedService.getDayTranslation(sharedService.locationData.data[sharedService.locationDataIndex].weekday, settings.language) : null }}
+            </p>
+
+            <p class="subheader-stacked-lower">
+                {{ sharedService.locationData.data ? sharedService.modifyDateString(sharedService.locationData.data[sharedService.locationDataIndex].date) : null }}
+            </p>            
+        </div>
+    </div>
+
+    <div class="subheader-right">
+        <p class="subheader-single">
+            {{ translations[settings.language].probabilities }}
+        </p>
+
+        <ion-toggle style="margin: auto;" [(ngModel)]="settings.probabilities"></ion-toggle>
+    </div>
+</div>
+
+<div class="no-connection-data" *ngIf="!sharedService.locationData.data">
+    <div>
+        <ion-icon name="md-paper"></ion-icon>
+        <p>{{ translations[settings.language].dataUnavailable }}</p>
+    </div>
+</div>
+
+<ion-slides #forecastSlides (ionSlideDidChange)="setLocationDataIndex()">
+    <ion-slide *ngFor="let day of sharedService.locationData.data; let i = index">
+        <ion-content>
+            <ion-refresher (ionRefresh)="onPull($event)" pullMin="160">
+                <ion-refresher-content pullingIcon="md-arrow-dropdown-circle" 
+                                       pullingText="" refreshingText=""
+                                       refreshingSpinner="crescent">
+                </ion-refresher-content>
+            </ion-refresher>
+
+            <div  class="hour-item" 
+                 *ngFor="let forecast of sharedService.locationData.data[i].forecast"                
+                 [ngStyle]="settings.probabilities ? { 'margin-bottom': '8px' } : null">
+
+                <div class="hour-item-row">
+                    <div class="hour-item-col">
+                        <p>{{ forecast.hour }}</p>
+                    </div>
+
+                    <div class="hour-item-col">
+                        <div style="flex: 1;">
+                            <div style="height: 100%; margin: auto; position: relative;">
+                                <img src="assets/icons/{{ forecast.weather }}">
+
+                                <img class="img-fog" style="margin-top: 2px;" src="assets/icons/301.png" *ngIf="forecast.fog === '301.png'">
+
+                                <img class="img-fog" style="margin-top: 6px;" src="assets/icons/302.png" *ngIf="forecast.fog === '302.png'"> 
+
+                                <img class="img-storm" src="assets/icons/201.png" *ngIf="forecast.tstorm === '201.png'">
+
+                                <img class="img-storm" src="assets/icons/202.png" *ngIf="forecast.tstorm === '202.png'">                         
+                            </div>
+                        </div>
+                    </div>    
+
+                    <div class="hour-item-col">
+                        <p [ngStyle]="sharedService.getTemperatureColor(forecast.temperature)">
+                            <strong>{{ sharedService.convertTemperature(forecast.temperature, settings.units.unitTemperature) }}{{  settings.units.unitTemperature }}</strong>
+                        </p>
+                    </div>
+
+                    <div class="hour-item-col">
+                        <p>
+                            &nbsp;{{ forecast.humidity }}%
+                        </p>
+                    </div> 
+
+                    <div class="hour-item-col">
+                        <p *ngIf="forecast.prec !== '0.0'" style="color: #00C853;">
+                            {{ sharedService.convertLengthS(forecast.prec,  settings.units.unitLength.s) }}{{  settings.units.unitLength.s }}
+                        </p>
+                    </div> 
+
+                    <div class="hour-item-col">
+                        <div style="flex: 1;">
+                            <img style="padding: 8px;" src="assets/icons/{{ getWindImage(forecast.wind) }}" [ngStyle]="{ 'transform': 'rotate(' + forecast.wdir + 'deg)' }">
+                        </div>
+                    </div>                                                                                            
+                </div>  
+                
+                <div style="background-color: #f5f5f5; height: 44px;" 
+                    [ngClass]="settings.probabilities ? 'posibilities-down' : 'posibilities-up'">
+                    <div *ngIf="settings.probabilities">
+                        <hr style="margin: 0 25px;">  
+
+                        <div class="hour-item-row" style="padding: 0 5%; height: 44px;">
+                            <div class="hour-item-col">
+                                <p>{{ translations[settings.language].precipitation }}
+                                    <br>
+                                    <span [ngStyle]="forecast.precpct !== '<1%' ? { 'color': '#00C853' } : null">
+                                        {{ forecast.precpct }}
+                                    </span>                                    
+                                </p>
+                            </div>    
+
+                            <div class="hour-item-col">
+                                <p>{{ translations[settings.language].snow }}
+                                    <br>
+                                    <span [ngStyle]="forecast.snowpct !== '<1%' ? { 'color': '#2962FF' } : null">
+                                        {{ forecast.snowpct }}
+                                    </span>
+                                </p> 
+                            </div>      
+
+                            <div class="hour-item-col">
+                                <p>{{ translations[settings.language].lightning }}
+                                    <br>
+                                    <span [ngStyle]="forecast.tstormpct !== '<1%' ? { 'color': '#FF1744' } : null">
+                                        {{ forecast.tstormpct }}
+                                    </span>
+                                </p>
+                            </div>                                                               
+                        </div> 
+                    </div>
+                </div>                 
+            </div>
+        </ion-content>
+    </ion-slide>
+</ion-slides>

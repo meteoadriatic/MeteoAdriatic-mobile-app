@@ -1,0 +1,11 @@
+<ion-header>
+    <ion-navbar color="primary">
+        <ion-title>{{ translations[settings.language].legend }}</ion-title> 
+    </ion-navbar>
+</ion-header>
+
+<ion-content>
+    <ion-item [navPush]="legendWeatherPage">{{ translations[settings.language].marksWeather }}</ion-item> 
+    <ion-item [navPush]="legendWindPage">{{ translations[settings.language].marksWind }}</ion-item> 
+    <ion-item [navPush]="legendIconsPage">{{ translations[settings.language].colorsicons }}</ion-item> 
+</ion-content>

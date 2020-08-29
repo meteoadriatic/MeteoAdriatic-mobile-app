@@ -1,0 +1,26 @@
+<ion-header>
+    <ion-navbar color="primary">
+        <ion-title>{{ translations[language].chooseLoc }}</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-header style="top: 56px;">
+    <ion-navbar color="primary">
+        <ion-searchbar animated="true" 
+                       placeholder="{{ translations[language].searchLoc }}" 
+                       style="color: #f7f7f7" 
+                       showCancelButton="false" 
+                       [(ngModel)]="query">
+        </ion-searchbar>
+    </ion-navbar>
+</ion-header>
+
+<ion-content>
+    <p>{{ translations[language].chosenWill }}</p>
+
+    <div style="height: 113px;"></div>
+
+    <ion-item *ngFor="let location of locations | filterBy2: sharedService.modifyQueryString(query)" (click)="onCitySelected(location);">
+        {{ sharedService.modifyLocationString(location.location) }}
+    </ion-item>
+</ion-content>

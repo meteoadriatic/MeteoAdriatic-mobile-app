@@ -1,0 +1,61 @@
+<ion-header>
+    <ion-navbar color="primary">
+        <ion-title>{{ chartData.name }}</ion-title>
+
+        <ion-buttons end>
+            <button ion-button icon-only (click)="!isFavorite ? setFavorite() : unsetFavorite()">
+                <ion-icon [name]="isFavorite ? 'md-heart' : 'md-heart-outline'"></ion-icon>
+            </button>             
+            <!-- <button ion-button icon-only>
+                <ion-icon name="ios-information-circle-outline"></ion-icon>
+            </button> -->
+        </ion-buttons>        
+    </ion-navbar>
+</ion-header>
+
+<div style="width: 100%; height: 56px;"></div>
+
+<div class="chart-path" *ngIf="!notFromTree">
+    <h6 class="chart-path-wrapper">
+        <p class="chart-path-paragraph" *ngFor="let piece of chartPath; let i = index;" (click)="goBack(i);">
+            {{ piece }}<span *ngIf="i !== (chartPath.length - 1)">&nbsp; / &nbsp;</span>
+        </p>
+    </h6>
+</div>
+
+<div class="no-connection-div" *ngIf="!chartLoaded">
+    <div>
+        <ion-icon name="md-images"></ion-icon>
+        
+        <p>{{ translations[settings.language].noImage }}</p>
+    </div>
+</div>
+
+<img id="chart" src="{{ chartImageSrc + parseState(state) }}.png" style="display: block;" alt="" imageViewer>
+
+<ion-item>
+    <ion-range min="{{ chartData.start }}" max="{{ chartData.last }}" step="{{ chartData.step }}"
+               snaps="false" [(ngModel)]="state" (ionChange)="changeDetector.detectChanges();">
+    </ion-range>
+</ion-item>
+
+<div class="chart-button-bar">
+    <div class="chart-button-bar-wrapper">
+        <button ion-button outline (click)="decreaseState()">
+            <ion-icon name="ios-skip-backward"></ion-icon>
+        </button>
+
+        <button ion-button outline (click)="presentAlertOnAutoplay()">
+            <ion-icon [name]="autoplay ? 'ios-pause' : 'ios-play'"></ion-icon>
+        </button>
+
+        <button ion-button outline (click)="increaseState()">
+            <ion-icon name="ios-skip-forward"></ion-icon>
+        </button>
+
+        <button ion-button outline (click)="shareChart(chartData.name , (chartImageSrc + parseState(state) + '.png'))"
+                style="position: absolute; right: 8px; height: 40px;">
+            <ion-icon name="md-share"></ion-icon>
+        </button>
+    </div>
+</div>

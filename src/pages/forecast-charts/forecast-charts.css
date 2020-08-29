@@ -1,0 +1,55 @@
+page-forecast-charts .toolbar-ios ion-title {
+  padding: 0 90px 0 16px;
+}
+
+page-forecast-charts .fixed-content {
+  margin-top: 56px;
+  margin-bottom: 56px;
+}
+
+page-forecast-charts .scroll-content {
+  margin-top: 56px;
+  margin-bottom: 56px;
+}
+
+page-forecast-charts .chart-path {
+  background-color: #fff;
+  border-bottom: 1px solid #ddd;
+  padding: 8px 16px;
+  position: relative;
+}
+
+page-forecast-charts .chart-path-title {
+  font-weight: bold;
+  text-transform: uppercase;
+  color: #1977d2;
+  font-size: 12px;
+  margin-bottom: 4px;
+}
+
+page-forecast-charts .chart-path-subtitle {
+  padding-left: 8px;
+  font-size: 12px;
+  color: #444;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+page-forecast-charts .chart-path-arrow {
+  position: absolute;
+  right: 0;
+  height: 100%;
+  width: 40px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-top: -8px;
+}
+
+page-forecast-charts .chart-path-arrow ion-icon {
+  margin: auto;
+  font-size: 20px;
+  color: #444;
+}
+/*# sourceMappingURL=forecast-charts.css.map */

@@ -1,0 +1,8 @@
+<ion-content>
+    <ion-item (click)="closePopover()" [navPush]="settingsPage">{{ translations[settings.language].settings }}</ion-item>
+    <ion-item (click)="closePopover()" [navPush]="legendsListPage">{{ translations[settings.language].legend }}</ion-item>
+    <!-- <ion-item (click)="closePopover(); activateEComposer('toman@meteoadriatic.net')">{{ translations[settings.language].askLoc }}</ion-item> -->
+    <ion-item (click)="closePopover(); activateEComposer('feedback@upstud.io')">{{ translations[settings.language].feedback }}</ion-item>
+    <ion-item (click)="closePopover(); rateApp()">{{ translations[settings.language].rate }}</ion-item>
+    <ion-item (click)="closePopover()" [navPush]="aboutAppPage">{{ translations[settings.language].aboutApp }}</ion-item>
+</ion-content>

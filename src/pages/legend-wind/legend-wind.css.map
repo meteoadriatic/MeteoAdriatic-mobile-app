@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AACI,gBADY,CACZ,YAAY,CAAC;EACT,OAAO,EAAE,uBAAuB;CACnC",
+    "sources": [
+        "legend-wind.scss"
+    ],
+    "names": [],
+    "file": "legend-wind.css"
+}

@@ -1,0 +1,228 @@
+<ion-header>
+    <ion-navbar color="primary">
+        <ion-title>{{ sharedService.modifyLocationString(sharedService.location) }}</ion-title>
+        <ion-buttons end>
+            <button ion-button icon-only (click)="presentModalSearchCity()">
+                <ion-icon name="md-search"></ion-icon>
+            </button>
+
+            <button ion-button icon-only (click)="presentPopoverMenu($event);">
+                <ion-icon name="md-more"></ion-icon>
+            </button>
+        </ion-buttons>
+    </ion-navbar>
+</ion-header>
+
+<div class="no-connection-data" *ngIf="!sharedService.locationData.data">
+    <div>
+        <ion-icon name="md-paper"></ion-icon>
+        <p>{{ translations[settings.language].dataUnavailable }}</p>
+    </div>
+</div>
+
+<ion-content [ngStyle]="sharedService.locationData.data ? {'display': 'initial' } : {'display': 'none' }">
+    <ion-refresher (ionRefresh)="onPull($event)" pullMin="160">
+        <ion-refresher-content pullingIcon="md-arrow-dropdown-circle" 
+                                pullingText="" refreshingText=""
+                                refreshingSpinner="crescent">
+        </ion-refresher-content>
+    </ion-refresher>
+        
+    <div class="home-heading">
+        <div class="home-heading-gradient-upper"></div>
+        <div class="home-heading-gradient-lower"></div>
+        <div class="home-heading-mask">
+            <div class="home-heading-time">
+                <p class="home-heading-day">
+                    <strong>
+                        {{ 
+                            sharedService.locationData.data 
+                            && sharedService.indexDay !== undefined ? 
+                               sharedService.getDayTranslation(sharedService.locationData.data[sharedService.indexDay].weekday, settings.language) : null 
+                        }}
+                    </strong>              
+                </p>
+                
+                <p class="home-heading-date">
+                    <strong>
+                        {{ 
+                            sharedService.locationData.data 
+                            && sharedService.indexDay !== undefined ? 
+                                sharedService.modifyDateString(sharedService.locationData.data[sharedService.indexDay].date) : null 
+                        }}
+                    </strong> 
+                </p>
+                <p class="home-heading-date">
+                    <strong>
+                        {{ getHours() }}:00
+                    </strong> 
+                </p>                
+            </div>
+
+            <div class="home-heading-info">
+                <p style="margin-bottom: 4px;">
+                    <strong>
+                            <ion-icon name="md-arrow-down" [ngStyle]="{ 'transform': 'rotate(' +  
+                            (sharedService.locationData.data 
+                          && sharedService.indexDay  !== undefined 
+                          && sharedService.indexHour !== undefined ?
+                                sharedService.locationData.data[sharedService.indexDay].forecast[sharedService.indexHour].wdir : null
+                             ) + 'deg)' }"></ion-icon>&nbsp;&nbsp;
+                        {{ 
+                            sharedService.locationData.data 
+                         && sharedService.indexDay  !== undefined 
+                         && sharedService.indexHour !== undefined ?
+                                sharedService.convertSpeed(sharedService.locationData.data[this.sharedService.indexDay].forecast[this.sharedService.indexHour].wspd, settings.units.unitSpeed) : null
+                        }}{{ settings.units.unitSpeed }}
+                    </strong>
+                </p>
+    
+                <p style="margin-bottom: 4px;">
+                    <strong>      
+                        <ion-icon name="ios-water"></ion-icon>&nbsp;&nbsp;
+                        {{ 
+                            sharedService.locationData.data 
+                        && sharedService.indexDay  !== undefined 
+                        && sharedService.indexHour !== undefined ?
+                                sharedService.locationData.data[sharedService.indexDay].forecast[sharedService.indexHour].humidity : null
+                        }}%
+                    </strong>
+                </p>
+
+                <p style="margin-bottom: 4px;">
+                    <strong>
+                        <ion-icon name="md-speedometer"></ion-icon>&nbsp;
+                        {{ 
+                            sharedService.locationData.data 
+                         && sharedService.indexDay  !== undefined 
+                         && sharedService.indexHour !== undefined ?
+                                sharedService.locationData.data[sharedService.indexDay].forecast[sharedService.indexHour].mslp : null
+                        }}hPa                             
+                    </strong>
+                </p>      
+                
+                <p *ngIf="sharedService.locationData.data 
+                       && sharedService.indexDay  !== undefined 
+                       && sharedService.indexHour !== undefined ?
+                            (sharedService.locationData.data[sharedService.indexDay].forecast[sharedService.indexHour].prec !== '0.0' ? true : false) : false">
+                    <strong>
+                        <ion-icon name="md-rainy"></ion-icon>&nbsp;
+                        {{ 
+                            sharedService.locationData.data 
+                         && sharedService.indexDay  !== undefined 
+                         && sharedService.indexHour !== undefined ?
+                                sharedService.convertLengthS(sharedService.locationData.data[sharedService.indexDay].forecast[sharedService.indexHour].prec, settings.units.unitLength.s) : null
+                        }}{{ settings.units.unitLength.s }}                    
+                    </strong>
+                </p>                     
+            </div>      
+            
+            <div class="home-heading-weather">
+                <div>
+                    <img alt="" src="assets/icons/{{ 
+                        sharedService.locationData.data 
+                        && sharedService.indexDay  !== undefined 
+                        && sharedService.indexHour !== undefined ?
+                            sharedService.locationData.data[sharedService.indexDay].forecast[sharedService.indexHour].weather : null 
+                    }}">
+
+                    <img class="img-storm" src="assets/icons/{{ 
+                        sharedService.locationData.data 
+                        && sharedService.indexDay  !== undefined 
+                        && sharedService.indexHour !== undefined ?
+                            sharedService.locationData.data[sharedService.indexDay].forecast[sharedService.indexHour].tstorm : null 
+                    }}" *ngIf="sharedService.locationData.data 
+                        && sharedService.indexDay  !== undefined 
+                        && sharedService.indexHour !== undefined ?
+                            (sharedService.locationData.data[sharedService.indexDay].forecast[sharedService.indexHour].tstorm !== '-' ? true : false) : false">    
+
+                    <img class="img-fog" src="assets/icons/{{ 
+                        sharedService.locationData.data 
+                        && sharedService.indexDay  !== undefined 
+                        && sharedService.indexHour !== undefined ?
+                            sharedService.locationData.data[sharedService.indexDay].forecast[sharedService.indexHour].fog : null 
+                    }}" *ngIf="sharedService.locationData.data 
+                        && sharedService.indexDay  !== undefined 
+                        && sharedService.indexHour !== undefined ?
+                            (sharedService.locationData.data[sharedService.indexDay].forecast[sharedService.indexHour].fog === '301.png' ? true : false) : false"> 
+                    <img class="img-fog" style="margin-top: -75%;" src="assets/icons/{{ 
+                        sharedService.locationData.data 
+                        && sharedService.indexDay  !== undefined 
+                        && sharedService.indexHour !== undefined ?
+                            sharedService.locationData.data[sharedService.indexDay].forecast[sharedService.indexHour].fog : null 
+                    }}" *ngIf="sharedService.locationData.data 
+                        && sharedService.indexDay  !== undefined 
+                        && sharedService.indexHour !== undefined ?
+                            (sharedService.locationData.data[sharedService.indexDay].forecast[sharedService.indexHour].fog === '302.png' ? true : false) : false">
+                </div>  
+                
+    
+                <p class="home-heading-temperature">
+                        {{ 
+                            sharedService.locationData.data 
+                         && sharedService.indexDay  !== undefined 
+                         && sharedService.indexHour !== undefined ?
+                                sharedService.convertTemperature(sharedService.locationData.data[sharedService.indexDay].forecast[sharedService.indexHour].temperature, settings.units.unitTemperature) : null
+                        }}{{ settings.units.unitTemperature }}
+                </p>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="home-canvas">
+        <canvas #homeGraph height="150" width="4200"></canvas> 
+
+        <div class="home-graph">
+            <div *ngFor="let temp of temperature; let i = index;" class="home-graph-ticks"> 
+                <div class="home-graph-ticks-info">
+                    <strong style="color: white; margin-bottom: 6px; position: relative; display: block; height: 16px;">{{ sharedService.getDayTranslation(days[i], settings.language) }}</strong>
+                   
+                    <strong [ngStyle]="sharedService.getTemperatureColor(temp)" style="font-size: 14px !important; position: relative; width: 100%; display: inline-block;">
+                            <span *ngIf="img[i]" class="home-graph-humidity" style="position: absolute; top: -3px; left: -5px; display: block; padding: 0; width: 24px; background: white; border-radius: 20px; border: 1px solid #ddd;">
+                                <img style="height: 18px; margin: auto; display: block;" src="assets/icons/{{ img[i] }}" alt="">                        
+                            </span>      
+                            {{ sharedService.convertTemperature(temp, settings.units.unitTemperature) }}{{ settings.units.unitTemperature }}
+                    </strong>
+
+                    <br>
+                    
+                    <span class="home-graph-humidity">
+                        <ion-icon style="color: #fff;" name="md-arrow-down" [ngStyle]="{ 'transform': 'rotate(' + windDir[i] + 'deg)' }"></ion-icon>
+                        &nbsp;{{ sharedService.convertSpeed(windSpeed[i], settings.units.unitSpeed) }}{{ settings.units.unitSpeed }}
+                    </span>                    
+
+                    <br>
+
+                    <span class="home-graph-humidity">
+                        <ion-icon style="color: #fff;" name="ios-water"></ion-icon>
+                        &nbsp;{{ humidity[i] }}%
+                    </span>
+
+                    <br> 
+                    
+                    <span class="home-graph-humidity">
+                        <ion-icon style="color: #fff;" name="md-speedometer"></ion-icon>
+                        {{ pressure[i] }}hPa
+                    </span>   
+                            
+
+                    <br>
+
+                    <span class="home-graph-humidity" *ngIf="prec[i] !== '0.0'">
+                        <ion-icon style="color: #fff;" name="md-rainy"></ion-icon>
+                        {{ sharedService.convertLengthS(prec[i], settings.units.unitLength.s) }}{{ settings.units.unitLength.s }}
+                    </span>   
+                                        
+                </div>
+            </div>
+        </div>
+    </div> 
+     
+    <hr>
+
+    <p class="home-heading-loc-date">
+        <ion-icon name="md-refresh"></ion-icon>&nbsp; {{ translations[settings.language].actualized }}:&nbsp;{{ getDate() }}
+    </p>
+</ion-content>
+

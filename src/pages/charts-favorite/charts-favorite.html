@@ -1,0 +1,31 @@
+<ion-header>
+    <ion-navbar color="primary">
+        <ion-title>{{ translations[settings.language].favorites }}</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<div class="no-connection-data" *ngIf="!connectionExists">
+    <div>
+        <ion-icon name="ios-wifi"></ion-icon>
+        
+        <p>{{ translations[settings.language].weekCon }}</p>
+    </div>
+</div>
+
+<ion-content *ngIf="connectionExists">
+    <div class="chart-path" *ngFor="let item of favorites" (click)="goToChart(item)">
+        <div class="chart-path-arrow">
+            <ion-icon name="ios-arrow-forward"></ion-icon>
+        </div>
+        <div class="chart-path-title">{{ item.chartData.name }}</div>
+
+        <div class="chart-path-subtitle">
+                -&nbsp;
+            <span *ngFor="let p of item.chartPath; let i = index;">
+                <span *ngIf="i !== 0">
+                    {{ p }}<span *ngIf="i !== item.chartPath.length - 1">&nbsp; / &nbsp;</span>
+                </span>
+            </span>
+        </div>
+    </div>
+</ion-content>
